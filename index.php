@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAIN MENU</title>
+</head>
+<body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    * {
+        transition: 1s;
+    }
+    body {
+        background-color: #f5f5dc;
+        font-family: 'Poppins', sans-serif;
+    }
+    a {
+        color: green;
+        text-decoration: none;
+        font-size: x-large;
+
+    }
+    a:hover {
+        color: red;
+    }
+    img {
+        box-shadow: 5px 10px #888888;
+        margin-right: 3vw;
+        
+    }
+    h5 {
+        color: grey;
+    }
+    h5:hover {
+        color: black;
+    }
+
+</style>
+<h2>THE BASICS</h2>
+    <?php
+    // Variables
+    $numpi = 3.1415;
+    $name = "Número PI";
+    $isornot = false;
+    // Indice reccorido -> array[0] es el primer elemento
+    $arraynumber = array("Número E", "Número de Fluzo");
+
+    echo "<h4>El $name es $numpi. . Otros Números son $arraynumber[0] o $arraynumber[1]</h4>";
+
+    ?>
+    <!-- // Preguntando por Input
+    // GET método no privado(URL) \ POST más Seuro -->
+    <form action="index.php" method="get">
+        PON TU NAME -> <input type="text" name="name" require>
+        <input type="submit">
+    </form>
+    
+    <?php 
+    // COmpureba que esté asignada
+    if(isset($_GET["name"])) {
+        echo "<h2>".$_GET["name"]." necesitas un editor de código, <a href='https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user'> vscode</a>, poejemplo </h2>";
+    }
+    
+    ?>
+
+    <hr>
+    <br>
+    <h5 style="float: right;">Mike</h5>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    <img   style="float: right;" height=180 src="https://i.pinimg.com/originals/7b/aa/25/7baa252dbdfeed669c152bedd2fa5feb.jpg" alt="Drunken Teacher">
+    
+    </a>
+    <h2>REPASO DEL DOMINGO</h2>
+    <h3>Tema 3</h3>
+    <a href="ex3_1.php">TEMA 3 PARTE 1</a>
+    <br>
+    <a href="ex3_2.php">TEMA 3 PARTE 2</a>
+    <br>
+    <a href="ex3_3.php">TEMA 3 PARTE 3</a>
+    <br>
+    <a href="ex3_4.php">TEMA 3 PARTE 4</a>
+    <br>
+    <a href="pr3_ajedrez.php">PRACTICA 3 AJEDREZ</a>
+    <br>
+
+    
+</body>
+</html>
