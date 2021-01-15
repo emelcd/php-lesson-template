@@ -148,6 +148,8 @@
         
     ?>
     <hr>
+    <h3><a style="text-decoration: none; color: black;"href="index.php">RETURN TO MAIN</a></h3>
+
     <br>
     <br>
     <br>

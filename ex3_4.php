@@ -124,6 +124,8 @@
         
     ?>
     <br>
+    <h3><a style="text-decoration: none; color: black;"href="index.php">RETURN TO MAIN</a></h3>
+
     <hr>
     <img width="230" src="https://i.pinimg.com/originals/a2/72/e8/a272e8985f6c4cecef564dacbbf0faa3.jpg">
     <img width="230" src="https://i.pinimg.com/originals/a2/72/e8/a272e8985f6c4cecef564dacbbf0faa3.jpg">
