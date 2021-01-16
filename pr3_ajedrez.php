@@ -26,147 +26,146 @@
             font-size: x-large;
 
         }
+
         .white-board {
             background-color: #EAD585;
         }
+
         .black-board {
             background-color: grey;
         }
+
         tr {
             height: 1rem;
         }
 
         table {
-            min-height: 40vh;
-            max-height: 60vh;
+            min-height: 60vh;
+            max-height: 70vh;
             min-width: 60vw;
             max-width: 80vh;
             height: 80vh;
-            margin-left: auto; 
+            margin-left: auto;
             margin-right: auto;
         }
+
         th {
             font-size: xx-large;
             width: 5vw;
             height: 5vh;
         }
+
         .container {
             margin: auto;
             text-align: center;
-            
+
         }
     </style>
     <form action="pr3_ajedrez.php">
-        DAMA<input type="checkbox" name="dama" id="dama">
-        TORRE<input type="checkbox" name="torre" id="dama">
-        ALFIL<input type="checkbox" name="alfil" id="dama">
-        PEON<input type="checkbox" name="peón" id="dama">
+        <select style="width: 20vw;" name="pieza" id="pieza">
+            <option selected="selected">Elige Pieza</option>
+            <?php
+            $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peón");
+            foreach ($piezas as $item) {
+                $valuePiezas = strtolower($item);
+                echo "<option value='$valuePiezas'>$item</option>";
+            }
+            ?>
+        </select>
         <br>
-        POSICIÓN X <input type="number" name="xboard" id="xboard">
-        POSICIÓN Y <input type="number" name="yboard" id="yboard">
-        <select>
-        <option selected="selected">Elige Pieza</option>
-        <?php
-        // A sample product array
-        $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peón");
-        
-        // Iterating through the product array
-        foreach($piezas as $item){
-            echo "<option value='strtolower($item)'>$item</option>";
-        }
-        ?>
-    </select>
-        <input type="submit" value="">
+        LETRA X <input type="text" name="xboard" id="xboard" required>
+        NÚMERO Y <input type="number" name="yboard" id="yboard">
+        <br>
+        <input type="submit" value="X">
 
 
     </form>
-   
+    <?php
+
+    function checkPos($posicionx, $posiciony)
+    {
+        $codePieza = $posicionx . $posiciony;
+        return $codePieza;
+    }
+    if (isset($_GET["pieza"])) {
+
+        checkPos($_GET["xboard"], $_GET["yboard"]);
+    }
+    ?>
+
     <h2>POSICIÖN AMENAZADA 👀</h2>
+
     <div class="container">
         <table>
-            <tr>
-                <th class="white-board">&#9820;</th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-            <tr>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board">♕</th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-    
-            </tr>
-            <tr>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-            <tr>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-    
-            </tr>
-            <tr>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-            <tr>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-    
-            </tr>
-            <tr>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-            <tr>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-                <th class="black-board"></th>
-                <th class="white-board"></th>
-    
-            </tr>
-    
-        </table>
+            <?php
+            function makeTh($pieza, $posicionx, $posiciony) {
+                $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
+                echo $letterArray[0].$numberArray[0];
 
+            }
+            makeTh($_GET["pieza"],$_GET["xboard"], $_GET["yboard"]);
+
+            function makePi($piz)
+            {
+                switch ($piz) {
+                    case 'dama':
+                        return "&#9813;";
+                    case 'torre':
+                        return "&#9814;";
+                    case 'alfil':
+                        return "&#9815;";
+                    case 'caballo':
+                        return "&#9816;";
+                        # code...
+
+                }
+                return $piz;
+            }
+
+            function makeWrite($codePosition)
+            {
+                $posUser = checkPos($_GET["xboard"], $_GET["yboard"]);
+                if ($codePosition == $posUser) {
+                    return makePi($_GET["pieza"]);
+                }
+                return $codePosition;
+            }
+            function makeRow($colorStart, $letterIndex, $numberRow)
+            {
+                $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                $classBoard = $colorStart;
+                for ($i = 8; $i > 0; $i = $i - 1) {
+                    $codeP = $letterArray[$letterIndex] . $numberRow;
+                    echo "<th class=$classBoard>" . makeWrite($codeP) . "</th>";
+                    if ($classBoard == "white-board") {
+                        $classBoard = "black-board";
+                    } else {
+                        $classBoard = "white-board";
+                    }
+                    $letterIndex++;
+                }
+            };
+            function makeTable()
+            {
+                $letterIndex = 0;
+                $classBoard = "black-board";
+                for ($i = 8; $i > 0; $i = $i - 1) {
+                    echo "<tr>";
+                    echo makeRow($classBoard, $letterIndex, $i);
+                    echo "</tr>";
+                    if ($classBoard == "white-board") {
+                        $classBoard = "black-board";
+                    } else {
+                        $classBoard = "white-board";
+                    }
+                }
+            }
+            makeTable();
+
+
+            ?>
+        </table>
     </div>
 
 
