@@ -98,13 +98,37 @@
     <div class="container">
         <table>
             <?php
-            function makeTh($pieza, $posicionx, $posiciony) {
+            function makeTh($pieza, $posicionx, $posiciony)
+            {
                 $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
                 $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
-                echo $letterArray[0].$numberArray[0];
+                $bagof = array();
+                // Tower Logic
+                // for ($i = 0; $i < 8; $i = $i + 1) {
+                //     $union1 = $letterArray[$i] . $numberArray[$posiciony];
+                //     $union2 = $letterArray[$posicionx] . $numberArray[$i];
+                //     array_push($bagof, $union1);
+                //     array_push($bagof, $union2);
+                // }
+                // Alfil Logic
+                for ($i = 0; $i < 8; $i = $i + 1) {
+                    $diag = abs($posicionx - $posiciony);
 
+                    $union1 = $letterArray[$posicionx + $i] . $numberArray[$posiciony - $i];
+                    // $union2 = $letterArray[$i] . $numberArray[$i + $diag ];
+                    array_push($bagof, $union1);
+                    // array_push($bagof, $union2);
+                    if (in_array($letterArray[$posicionx].$numberArray[$posiciony], $bagof) ) {
+                        echo "MIERDA".$letterArray[$posicionx].$numberArray[$posiciony]."<br>";
+                    }
+                }
+                foreach ($bagof as $item) {
+                    echo $item . "<br>";
+
+                }
+                echo $diag;
             }
-            makeTh($_GET["pieza"],$_GET["xboard"], $_GET["yboard"]);
+            makeTh($_GET["pieza"], 5, 7);
 
             function makePi($piz)
             {
