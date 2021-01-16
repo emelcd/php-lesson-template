@@ -73,8 +73,8 @@
             ?>
         </select>
         <br>
-        LETRA X <input type="text" name="xboard" id="xboard" required>
-        NÚMERO Y <input type="number" name="yboard" id="yboard">
+        <input type="text" name="xboard" id="xboard" required>
+        <input type="number" name="yboard" id="yboard">
         <br>
         <input type="submit" value="X">
 
@@ -98,37 +98,66 @@
     <div class="container">
         <table>
             <?php
-            function makeTh($pieza, $posicionx, $posiciony)
+            function transformLetra($x) {
+                switch ($x) {
+                    case 'A':
+                        return 0;
+                    case 'B':
+                        return 1;
+                    case "C":
+                        return 2;
+                    case 'D':
+                        return 3;
+                    case 'E':
+                        return 4;
+                    case "F":
+                        return 5;
+                    case "G":
+                        return 6;
+                    case "H":
+                        return 7;
+
+                }
+            }
+            function tranformNumero($y) {
+                switch ($y) {
+                    case '1':
+                        return 0;
+                    case '2':
+                        return 1;
+                    case "3":
+                        return 2;
+                    case '4':
+                        return 3;
+                    case '5':
+                        return 4;
+                    case "6":
+                        return 5;
+                    case "7":
+                        return 6;
+                    case "8":
+                        return 7;
+
+                }
+            }
+            function makeTorre($pieza, $posicionx, $posiciony)
             {
                 $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
                 $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
                 $bagof = array();
                 // Tower Logic
-                // for ($i = 0; $i < 8; $i = $i + 1) {
-                //     $union1 = $letterArray[$i] . $numberArray[$posiciony];
-                //     $union2 = $letterArray[$posicionx] . $numberArray[$i];
-                //     array_push($bagof, $union1);
-                //     array_push($bagof, $union2);
-                // }
-                // Alfil Logic
                 for ($i = 0; $i < 8; $i = $i + 1) {
-                    $diag = abs($posicionx - $posiciony);
-
-                    $union1 = $letterArray[$posicionx + $i] . $numberArray[$posiciony - $i];
-                    // $union2 = $letterArray[$i] . $numberArray[$i + $diag ];
+                    $union1 = $letterArray[$i] . $numberArray[$posiciony];
+                    $union2 = $letterArray[$posicionx] . $numberArray[$i];
                     array_push($bagof, $union1);
-                    // array_push($bagof, $union2);
-                    if (in_array($letterArray[$posicionx].$numberArray[$posiciony], $bagof) ) {
-                        echo "MIERDA".$letterArray[$posicionx].$numberArray[$posiciony]."<br>";
-                    }
+                    array_push($bagof, $union2);
                 }
-                foreach ($bagof as $item) {
-                    echo $item . "<br>";
+
+                return $bagof;
+
 
                 }
-                echo $diag;
-            }
-            makeTh($_GET["pieza"], 5, 7);
+            
 
             function makePi($piz)
             {
@@ -152,6 +181,11 @@
                 $posUser = checkPos($_GET["xboard"], $_GET["yboard"]);
                 if ($codePosition == $posUser) {
                     return makePi($_GET["pieza"]);
+                } else if ($_GET["pieza"] == "torre") {
+                    if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]))) ) {
+                        return "*";
+                    }
+
                 }
                 return $codePosition;
             }
