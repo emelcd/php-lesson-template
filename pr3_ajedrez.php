@@ -62,8 +62,8 @@
         }
     </style>
     <form action="pr3_ajedrez.php">
-        <select style="width: 20vw;" name="pieza" id="pieza">
-            <option selected="selected">Elige Pieza</option>
+        <select style="width: 20vw;" name="pieza" id="pieza" required>
+            <option selected="selected"></option>
             <?php
             $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peon", "Rey");
             foreach ($piezas as $item) {
@@ -72,11 +72,29 @@
             }
             ?>
         </select>
+        <select style="width: 20vw;" name="xboard" id="xboard" required>
+            <option selected="selected"></option>
+            <?php
+            $xindex = array("A", "B", "C", "D", "E", "F","G", "H");
+            foreach ($xindex as $item) {
+                echo "<option value='$item'>$item</option>";
+            }
+            ?>
+        </select>
+        <select style="width: 20vw;" name="yboard" id="yboard" required>
+            <option selected="selected"></option>
+            <?php
+            $yindex = array("1", "2", "3", "4", "5", "6","7", "8");
+            foreach ($yindex as $item) {
+                echo "<option value='$item'>$item</option>";
+            }
+            ?>
+        </select>
         <br>
-        <input type="text" name="xboard" id="xboard" required>
-        <input type="number" name="yboard" id="yboard">
+        <!-- <input type="text" name="xboard" id="xboard" required> -->
+        <!-- <input type="number" name="yboard" id="yboard"> -->
         <br>
-        <input type="submit" value="X">
+        <input type="submit" value="VER LAS AMENAZAS POR PIEZAS">
 
 
     </form>
@@ -98,6 +116,7 @@
     <div class="container">
         <table>
             <?php
+
             function transformLetra($x)
             {
                 switch ($x) {
@@ -152,10 +171,11 @@
                     array_push($bagof, $union1);
                     array_push($bagof, $union2);
                 }
-
+                
+                array_unique($bagof);
                 return $bagof;
             }
-
+            
             function makeAlfil($pieza, $posicionx, $posiciony)
             {
                 $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
@@ -205,6 +225,7 @@
                         }
                     }
                 };
+                array_unique($bagof);
                 return $bagof;
             }
             function makeDama($pieza)
@@ -220,6 +241,7 @@
                 }
 
 
+                array_unique($bagof);
                 return $bagof;
             }
             function makeCaballo($pieza, $posicionx, $posiciony)
@@ -261,10 +283,12 @@
                     array_push($bagof, $newP8);
                 }
 
+                array_unique($bagof);
                 return $bagof;
 
             }
-            function makeRey($pieza, $posicionx, $posiciony) {
+            function makeRey($pieza, $posicionx, $posiciony) 
+            {
                 $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
                 $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
                 $bagof = array();
@@ -274,8 +298,8 @@
                 for ($i=-1; $i <2; $i++) { 
                     for ($j=-1; $j < 2; $j++) { 
                         if(isset($letterArray[$posicionx + $i]) && isset($numberArray[$posiciony + $j])) {
-                            
-                            echo $letterArray[$posicionx + $i].$numberArray[$posiciony + $j]."<br>";
+                            $union1 = $letterArray[$posicionx + $i].$numberArray[$posiciony + $j];
+                            array_push($bagof, $union1);
                         }
                     }
                 }
@@ -283,11 +307,27 @@
                 // 
 
 
-                foreach($bagof as $item) {
-                    echo $item;
-                }
+                array_unique($bagof);
+                return $bagof;
             }
-            makeRey(0, 0, 0);
+            function makePeon($pieza, $posicionx, $posiciony) 
+            {
+                $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
+                $bagof = array();
+                for ($i=-1; $i < 2; $i = $i + 2) { 
+                    if(isset($letterArray[$posicionx + $i]) && isset($numberArray[$posiciony + 1])){
+                        $union1 = $letterArray[$posicionx + $i].$numberArray[$posiciony + 1];
+                        array_push($bagof,$union1);
+
+                    }
+                }
+                array_unique($bagof);
+                
+                return $bagof;
+            }
+
+
 
 
             function makePi($piz)
@@ -319,6 +359,8 @@
                 } 
                 else if ($_GET["pieza"] == "torre") {
                     if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        // echo "LA TORRE EN".transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]);
+                        // echo $codePosition. " ";
                         return "*";
                     }
                 } 
@@ -334,6 +376,16 @@
                 }
                 else if ($_GET["pieza"] == "caballo") {
                     if (in_array($codePosition, makeCaballo($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        return "*";
+                    }
+                }
+                else if ($_GET["pieza"] == "rey") {
+                    if (in_array($codePosition, makeRey($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        return "*";
+                    }
+                }
+                else if ($_GET["pieza"] == "peon") {
+                    if (in_array($codePosition, makePeon($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
                         return "*";
                     }
                 }
@@ -369,7 +421,18 @@
                     }
                 }
             }
-            makeTable();
+            if (isset($_GET["pieza"]) && isset($_GET["xboard"]) && isset($_GET["yboard"]))
+            {
+                makeTable();
+            } else {
+                echo "<h3>INTRODUCE PARÁMTEROS</h3>";
+
+            }
+
+
+            
+
+
 
 
             ?>
