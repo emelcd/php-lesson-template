@@ -65,7 +65,7 @@
         <select style="width: 20vw;" name="pieza" id="pieza">
             <option selected="selected">Elige Pieza</option>
             <?php
-            $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peón");
+            $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peon", "Rey");
             foreach ($piezas as $item) {
                 $valuePiezas = strtolower($item);
                 echo "<option value='$valuePiezas'>$item</option>";
@@ -98,7 +98,8 @@
     <div class="container">
         <table>
             <?php
-            function transformLetra($x) {
+            function transformLetra($x)
+            {
                 switch ($x) {
                     case 'A':
                         return 0;
@@ -116,10 +117,10 @@
                         return 6;
                     case "H":
                         return 7;
-
                 }
             }
-            function tranformNumero($y) {
+            function tranformNumero($y)
+            {
                 switch ($y) {
                     case '1':
                         return 0;
@@ -137,7 +138,6 @@
                         return 6;
                     case "8":
                         return 7;
-
                 }
             }
             function makeTorre($pieza, $posicionx, $posiciony)
@@ -154,10 +154,141 @@
                 }
 
                 return $bagof;
+            }
 
+            function makeAlfil($pieza, $posicionx, $posiciony)
+            {
+                $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
+                $bagof = array();
 
+                //- Primera Aproximación
+                //- 2
+                // Obtener fórmula sobre la array
+                // Diagonales positivas - 1 de las cordenadas llega a 0(-1,-1), después se elevan(+1,+1) hasta llegar a 7
+
+                // PRIMERA DIAGONAL
+                if ($posicionx >= $posiciony) {
+                    $new1pa = $posicionx - $posiciony;
+                    $new1pb = 0;
+                } else {
+                    $new1pb = $posiciony - $posicionx;
+                    $new1pa = 0;
                 }
-            
+
+                for ($i = 0; $i < 8; $i++) {
+                    if ($new1pa + $i < 8 && $new1pb + $i < 8) {
+                        $union1 = $letterArray[$new1pa + $i] . $numberArray[$new1pb + $i];
+                        array_push($bagof, $union1);
+                    }
+                }
+
+                // // SEGUNDA DIAGONAL- El algoritmo es mucho más complejo, depende de lo alejados del límite o yo no e sabido plantearlo
+                if ($posicionx > 7 - $posiciony) {
+                    $new2pa = $posicionx - (7 - $posiciony);
+                    $new2pb = 7;
+                    for ($i = 0; $i < 8; $i++) {
+                        if ($new2pa + 7 - $i < 8) {
+                            $union2 = $letterArray[$i] . $numberArray[$new2pa + 7 - $i];
+                            array_push($bagof, $union2);
+                        }
+                    }
+                } else {
+                    $new2pa = 0;
+                    $new2pb = $posicionx + $posiciony;
+                    for ($i = 0; $i < 8; $i++) {
+                        if ($new2pa + 7 - $i < 8) {
+                            if ($new2pb - $i > -1) {
+                                $union2 = $letterArray[$i] . $numberArray[$new2pb - $i];
+                                array_push($bagof, $union2);
+                            }
+                        }
+                    }
+                };
+                return $bagof;
+            }
+            function makeDama($pieza)
+            {
+                $bagof = array();
+                $bagofTorre = makeAlfil($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
+                $bagofAlfil = makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
+                foreach ($bagofTorre as $item) {
+                    array_push($bagof, $item);
+                }
+                foreach ($bagofAlfil as $item) {
+                    array_push($bagof, $item);
+                }
+
+
+                return $bagof;
+            }
+            function makeCaballo($pieza, $posicionx, $posiciony)
+            {
+                $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
+                $bagof = array();
+                // SALTOS DEL CABALLO
+                if((($posicionx - 2 >= 0) && ($posiciony + 1 <= 7))){
+                    $newP1 = $letterArray[$posicionx - 2] . $numberArray[$posiciony + 1];
+                    array_push($bagof, $newP1);
+                }
+                if((($posicionx - 2 >= 0) && ($posiciony - 1 >= 0))){
+                    $newP2 = $letterArray[$posicionx - 2] . $numberArray[$posiciony - 1];
+                    array_push($bagof, $newP2);
+                }
+                if((($posicionx + 2 <= 7) && ($posiciony + 1 <= 7))){
+                    $newP3 = $letterArray[$posicionx + 2] . $numberArray[$posiciony + 1];
+                    array_push($bagof, $newP3);
+                }
+                if((($posicionx + 2 <= 7) && ($posiciony - 1 >= 0))){
+                    $newP4 = $letterArray[$posicionx + 2] . $numberArray[$posiciony - 1];
+                    array_push($bagof, $newP4);
+                }
+                if((($posicionx + 1 <= 7) && ($posiciony - 2 >= 0))){
+                    $newP5 = $letterArray[$posicionx + 1] . $numberArray[$posiciony - 2];
+                    array_push($bagof, $newP5);
+                }
+                if((($posicionx - 1 >= 0) && ($posiciony - 2 >= 0))){
+                    $newP6 = $letterArray[$posicionx - 1] . $numberArray[$posiciony - 2];
+                    array_push($bagof, $newP6);
+                }
+                if((($posicionx + 1 <= 7) && ($posiciony + 2 <= 7))){
+                    $newP7 = $letterArray[$posicionx + 1] . $numberArray[$posiciony + 2];
+                    array_push($bagof, $newP7);
+                }
+                if((($posicionx - 1 >= 0) && ($posiciony + 2 <= 7))){
+                    $newP8 = $letterArray[$posicionx - 1] . $numberArray[$posiciony + 2];
+                    array_push($bagof, $newP8);
+                }
+
+                return $bagof;
+
+            }
+            function makeRey($pieza, $posicionx, $posiciony) {
+                $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
+                $bagof = array();
+                // Direcciones
+                // Hacia arriba
+                // isset soluciona todos los problemas
+                for ($i=-1; $i <2; $i++) { 
+                    for ($j=-1; $j < 2; $j++) { 
+                        if(isset($letterArray[$posicionx + $i]) && isset($numberArray[$posiciony + $j])) {
+                            
+                            echo $letterArray[$posicionx + $i].$numberArray[$posiciony + $j]."<br>";
+                        }
+                    }
+                }
+                
+                // 
+
+
+                foreach($bagof as $item) {
+                    echo $item;
+                }
+            }
+            makeRey(0, 0, 0);
+
 
             function makePi($piz)
             {
@@ -170,7 +301,11 @@
                         return "&#9815;";
                     case 'caballo':
                         return "&#9816;";
-                        # code...
+                    case 'peon':
+                        return "&#9817;";
+                    case 'rey':
+                        return "&#9812;";  
+                    
 
                 }
                 return $piz;
@@ -181,11 +316,26 @@
                 $posUser = checkPos($_GET["xboard"], $_GET["yboard"]);
                 if ($codePosition == $posUser) {
                     return makePi($_GET["pieza"]);
-                } else if ($_GET["pieza"] == "torre") {
-                    if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]))) ) {
+                } 
+                else if ($_GET["pieza"] == "torre") {
+                    if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
                         return "*";
                     }
-
+                } 
+                else if ($_GET["pieza"] == "alfil") {
+                    if (in_array($codePosition, makeAlfil($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        return "*";
+                    }
+                } 
+                else if ($_GET["pieza"] == "dama") {
+                    if (in_array($codePosition, makeDama($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        return "*";
+                    }
+                }
+                else if ($_GET["pieza"] == "caballo") {
+                    if (in_array($codePosition, makeCaballo($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        return "*";
+                    }
                 }
                 return $codePosition;
             }
