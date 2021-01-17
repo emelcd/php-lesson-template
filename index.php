@@ -40,11 +40,14 @@
 <h2>THE BASICS</h2>
     <?php
     // Variables
-    $numpi = 3.1415;
+    $numpi = 3.1415; 
     $name = "Número PI";
     $isornot = false;
     // Indice reccorido -> array[0] es el primer elemento
-    $arraynumber = array("Número E", "Número de Fluzo");
+    $arraynumber = array("Número E", "Número de Fluzo", TRUE);
+    IF($arraynumber[2] == TRUE) {
+        
+    }
 
     echo "<h4>El $name es $numpi. . Otros Números son $arraynumber[0] o $arraynumber[1]</h4>";
 
@@ -82,6 +85,8 @@
     <a href="ex3_4.php">TEMA 3 PARTE 4</a>
     <br>
     <a href="pr3_ajedrez.php">PRACTICA 3 AJEDREZ</a>
+    <br>
+    <a href="ex4_1.php">TEMA 4 PARTE 1</a>
     <br>
 
     

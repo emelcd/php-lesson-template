@@ -70,10 +70,6 @@
             // echo $try;
         } 
         echo $sum;
-
-        
-
-
     };
 
 
@@ -97,6 +93,7 @@
     <?php 
     function su2mCh($number1){
         $strNumber = strval($number1);
+        // $string = "125"-> $string[2] = 5
         $strLen = strlen((string)$strNumber);
         for ($i = 0; $i < $strLen - 1  ; $i = $i + 1) {
             $try = intval($strNumber[$i]);

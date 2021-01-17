@@ -79,8 +79,17 @@
         <input type="submit">
     </form>   
     <br>
+    <!-- Número1 donde empieza -->
+    <!-- Número2 donde acaba -->
+    
 
     <?php 
+    // Caso igual 100
+        $sum = 0;   
+        for ($i=1; $i < 100; $i++) { 
+            $sum = $sum + $i;
+
+        }
         function summaN($number1, $number2){
             $sum = 0;
             for ($i = $number1; $i <= $number2; $i = $i + 1) {
@@ -108,6 +117,11 @@
     <br>
 
     <?php 
+        $sum = 0;
+        for ($i = 1; $i < 100; $i = $i + 2) {
+            $sum = $sum + $i;
+            
+        };
         function summaNG($number1, $number2, $number3){
             $sum = 0;
             for ($i = $number1; $i <= $number2; $i = $i + $number3) {

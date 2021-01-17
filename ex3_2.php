@@ -33,8 +33,13 @@
     <?php 
         function theFactorial($number) {
             $factorial = 1;
+            // Número 5
             for ($i = $number; $i > 0; $i = $i -1 ) {
                 $factorial = $factorial * $i;
+                // BUCLE 5
+                // Bucle 5 * 4
+                // Bucle 5 * 4 * 3
+                // Bucle 5*4*3*2*1
                 
             }
             echo $factorial;
@@ -62,6 +67,7 @@
                 echo "PON UN ENTERO POSITIVO";
                 return;
             }
+
             $right = strval($number);
             $reverse = strrev($right);
             if ($right == $reverse) {
@@ -90,12 +96,13 @@
     </form>
     <br>
     <?php 
-
+        // $number1 = primo
         function checkPrime($number) {
+            // 17 (2, 3, 4, 5, 6, 7, 8, 9, --)
             for ($i = $number - 1; $i > 1; $i = $i -1 ) {
-                $checker = $number % $i;
-                echo $checker." ";
-                if ($checker == 0) {
+                $resto = $number % $i;
+                echo $resto." ";
+                if ($resto == 0) {
                     echo "<br>No es primo";
                     return;
                 }
@@ -128,7 +135,12 @@
 
         function checkExp($number1, $number2) {
             $exp = pow($number1, $number2);
+            // $potencia = 1;
+            // for ($i=0; $i < $number2; $i++) { 
+            //     $potencia = $potencia * $number1;
+            // }
             echo $exp;
+            // echo $potencia;
         }
         if (isset($_GET["ex81"])) {
 
