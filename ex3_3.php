@@ -94,9 +94,8 @@
     $divisor = -2;
     if ($divisor == 0) {
         echo "No se puede dividir por 0 <br>";
-        echo "<a href='index11.html'/> reintentar";
     } elseif ($dividendo < 0 or $divisor < 0) {
-        echo "ERROR 404: los numeros deben de ser positivos <br>";
+        echo "Deben de ser positivos <br>";
     } else {
         $cociente = (int)($dividendo / $divisor);
         $resto = $dividendo % $divisor;

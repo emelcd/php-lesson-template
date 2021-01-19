@@ -74,8 +74,6 @@
         }
         echo $suma . "<br>";
     }
-    $v1 = array(1, 2, 3);
-    $v2 = array(4, 5, 6);
 
     if (isset($_GET["ex1a"])) {
         vecProCru(numToVector($_GET["ex1a"]) ,numToVector($_GET["ex1b"]));
@@ -102,12 +100,13 @@
             echo $item;
         }
     }
-    $v1 = array(0, 2, 2, 3, 7, 7, 8, 9);
 
-    if (isset($v1)) {
-        // vecOrdenar($v1);
-    }
-    ?>
+
+        if (isset($_GET["ex2"])) {
+            vecOrdenar(numToVector($_GET["ex2"]));
+        }
+        ?>
+
     <hr>
 
 
