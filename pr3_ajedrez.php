@@ -156,6 +156,48 @@
     <div class="container">
         <table>
             <?php
+            function transformLetra($x)
+            {
+                switch ($x) {
+                    case 'A':
+                        return 0;
+                    case 'B':
+                        return 1;
+                    case "C":
+                        return 2;
+                    case 'D':
+                        return 3;
+                    case 'E':
+                        return 4;
+                    case "F":
+                        return 5;
+                    case "G":
+                        return 6;
+                    case "H":
+                        return 7;
+                }
+            }
+            function tranformNumero($y)
+            {
+                switch ($y) {
+                    case '1':
+                        return 0;
+                    case '2':
+                        return 1;
+                    case "3":
+                        return 2;
+                    case '4':
+                        return 3;
+                    case '5':
+                        return 4;
+                    case "6":
+                        return 5;
+                    case "7":
+                        return 6;
+                    case "8":
+                        return 7;
+                }
+            }
 
 
 
@@ -286,7 +328,7 @@
             $yindexCustom = array(0, 1, 2, 3, 4, 5, 6, 7);
 
             
-            
+
             if (isset($_GET["pieza"]) && isset($_GET["xboard"]) && isset($_GET["yboard"])) {
                 $piezaAmenazante = new Pieza($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
                 $piezaAmenazada = new Pieza($_GET["piezan"], transformLetra($_GET["xboarda"]), tranformNumero($_GET["yboarda"]));
