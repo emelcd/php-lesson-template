@@ -144,35 +144,71 @@
 
             class Pieza
             {
-                
+                public $piezaM;
 
-                public function __construct($pieza, $posicionx, $posiciony)
+                public function __construct($piezan, $posicionx, $posiciony)
                 {
-                    $this->pieza = $pieza;
+                    $this->piezan = $piezan;
                     $this->posicionx = $posicionx;
                     $this->posiciony = $posiciony;
+
                 }
                 public function checkThreats()
                 {
-                    if ($this->pieza == "torre") {
-                        echo "FUNCIONO";
-                        $bagof = makeTorre($this->pieza,$this->posicionx,$this->posiciony);
+                    if ($this->piezan == "torre") {
+                        $bagof = makeTorre($this->piezan,$this->posicionx,$this->posiciony);
+                        return $bagof;
+                        
+                    } else if ($this->pieza == "alfil"){
+                        $bagof = makeAlfil($this->piezan,$this->posicionx,$this->posiciony);
                         return $bagof;
 
-                    } else {
-                        echo "NO FUNCION";
+                    } 
+                    else if ($this->pieza == "dama"){
+                        $bagof = makeDama($this->piezan,$this->posicionx,$this->posiciony);
+                        return $bagof;
+
+                    } 
+                    else if ($this->pieza == "rey"){
+                        $bagof = makeRey($this->piezan,$this->posicionx,$this->posiciony);
+                        return $bagof;
+
+                    } 
+                    else if ($this->pieza == "peon"){
+                        $bagof = makeRey($this->piezan,$this->posicionx,$this->posiciony);
+                        return $bagof;
+
+                    } 
+                    else {
+                        echo "ALGO VA MAL";
                     }
                 }
                 public function tellPlace()
                 {
-                    echo "{$this->pieza}";
+                    echo "{$this->piezan}";
                     echo "{$this->posicionx}";
                     echo "{$this->posiciony}";
                 }
+                public function isThreat($piezaM) {
+                    $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
+                    $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
+                    $codeP = $letterArray[$piezaM->posicionx].$numberArray[$piezaM->posiciony];
+                    $bagof = $this->checkThreats();
+                    foreach ($bagof as $item) {
+                        echo $item;
+                    }
+                    if (in_array($codeP, $this->checkThreats())) {
+                        echo "AMENAZADO";
+                    } else {
+                        echo "no amenazo";
+                    }
+                }
             }
             $pieza1 = new Pieza("torre", 2, 5);
+            $pieza2 = new Pieza("torre", 3, 3);
             echo $pieza1->tellPlace();
-            echo $pieza1->checkThreats();
+            // echo $pieza1->checkThreats();
+            echo $pieza1->isThreat($pieza2);
             function transformLetra($x)
             {
                 switch ($x) {
