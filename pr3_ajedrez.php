@@ -96,6 +96,17 @@
         </select>
         <hr>
         <h5>Amenazado</h5>
+        <select style="width: 20vw;" name="piezan" id="piezan" required>
+            <option selected="selected">torre</option>
+            <?php
+            $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peon", "Rey");
+            foreach ($piezas as $item) {
+                $valuePiezas = strtolower($item);
+                echo "<option value='$valuePiezas'>$item</option>";
+            }
+            ?>
+
+        </select>
         <select style="width: 20vw;" name="xboarda" id="xboarda">
             <option selected="selected">D</option>
             <?php
@@ -144,42 +155,31 @@
 
             class Pieza
             {
-                public $piezaM;
 
                 public function __construct($piezan, $posicionx, $posiciony)
                 {
                     $this->piezan = $piezan;
                     $this->posicionx = $posicionx;
                     $this->posiciony = $posiciony;
-
                 }
                 public function checkThreats()
                 {
                     if ($this->piezan == "torre") {
-                        $bagof = makeTorre($this->piezan,$this->posicionx,$this->posiciony);
+                        $bagof = makeTorre($this->piezan, $this->posicionx, $this->posiciony);
                         return $bagof;
-                        
-                    } else if ($this->pieza == "alfil"){
-                        $bagof = makeAlfil($this->piezan,$this->posicionx,$this->posiciony);
+                    } else if ($this->piezan == "alfil") {
+                        $bagof = makeAlfil($this->piezan, $this->posicionx, $this->posiciony);
                         return $bagof;
-
-                    } 
-                    else if ($this->pieza == "dama"){
-                        $bagof = makeDama($this->piezan,$this->posicionx,$this->posiciony);
+                    } else if ($this->piezan == "dama") {
+                        $bagof = makeDama($this->piezan, $this->posicionx, $this->posiciony);
                         return $bagof;
-
-                    } 
-                    else if ($this->pieza == "rey"){
-                        $bagof = makeRey($this->piezan,$this->posicionx,$this->posiciony);
+                    } else if ($this->piezan == "rey") {
+                        $bagof = makeRey($this->piezan, $this->posicionx, $this->posiciony);
                         return $bagof;
-
-                    } 
-                    else if ($this->pieza == "peon"){
-                        $bagof = makeRey($this->piezan,$this->posicionx,$this->posiciony);
+                    } else if ($this->piezan == "peon") {
+                        $bagof = makeRey($this->piezan, $this->posicionx, $this->posiciony);
                         return $bagof;
-
-                    } 
-                    else {
+                    } else {
                         echo "ALGO VA MAL";
                     }
                 }
@@ -189,26 +189,47 @@
                     echo "{$this->posicionx}";
                     echo "{$this->posiciony}";
                 }
-                public function isThreat($piezaM) {
+                public function asciiPi() {
+                    switch ($this->piezan) {
+                        case 'dama':
+                            return "&#9813;";
+                        case 'torre':
+                            return "&#9814;";
+                        case 'alfil':
+                            return "&#9815;";
+                        case 'caballo':
+                            return "&#9816;";
+                        case 'peon':
+                            return "&#9817;";
+                        case 'rey':
+                            return "&#9812;";
+                    }
+                    
+                }
+                public $piezaM;
+
+                public function isThreat($piezaM)
+                {
                     $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
                     $numberArray = array("1", "2", "3", "4", "5", "6", "7", "8");
-                    $codeP = $letterArray[$piezaM->posicionx].$numberArray[$piezaM->posiciony];
+                    $codeP = $letterArray[$piezaM->posicionx] . $numberArray[$piezaM->posiciony];
+                    $code = $letterArray[$this->posicionx] . $numberArray[$this->posiciony];
                     $bagof = $this->checkThreats();
-                    foreach ($bagof as $item) {
-                        echo $item;
-                    }
-                    if (in_array($codeP, $this->checkThreats())) {
-                        echo "AMENAZADO";
+
+                    if (in_array($codeP, $bagof)) {
+                        echo "$this->piezan en $code AMENAZA  $piezaM->piezan en  $codeP<br>";
                     } else {
-                        echo "no amenazo";
+                        echo "$this->piezan en $code NO AMENAZA  $piezaM->piezan en  $codeP<br>";
                     }
                 }
             }
-            $pieza1 = new Pieza("torre", 2, 5);
-            $pieza2 = new Pieza("torre", 3, 3);
-            echo $pieza1->tellPlace();
-            // echo $pieza1->checkThreats();
-            echo $pieza1->isThreat($pieza2);
+
+            // $eco = array();
+            // array_push($eco, $pieza1);
+            // print_r($eco);
+            // // echo $pieza1->tellPlace();
+            // // echo $pieza1->checkThreats();
+            // echo $pieza1->isThreat($pieza2);
             function transformLetra($x)
             {
                 switch ($x) {
@@ -420,59 +441,25 @@
 
 
 
-            function makePi($piz)
-            {
-                switch ($piz) {
-                    case 'dama':
-                        return "&#9813;";
-                    case 'torre':
-                        return "&#9814;";
-                    case 'alfil':
-                        return "&#9815;";
-                    case 'caballo':
-                        return "&#9816;";
-                    case 'peon':
-                        return "&#9817;";
-                    case 'rey':
-                        return "&#9812;";
-                }
-                return $piz;
-            }
 
             function makeWrite($codePosition)
             {
+                $piezaAmenazante = new Pieza($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
+                $piezaAmenazada = new Pieza($_GET["piezan"], transformLetra($_GET["xboarda"]), tranformNumero($_GET["yboarda"]));
                 $posUser = checkPos($_GET["xboard"], $_GET["yboard"]);
                 $posAme = checkPos($_GET["xboarda"], $_GET["yboarda"]);
                 if ($codePosition == $posUser) {
-                    return makePi($_GET["pieza"]);
+                    return $piezaAmenazante->asciiPi();
                 } else if ($codePosition == $posAme) {
-                    return makePi("peon");
-                } else if ($_GET["pieza"] == "torre") {
-                    if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                    return $piezaAmenazada->asciiPi();
+                } else  if (in_array($codePosition, $piezaAmenazante->checkThreats())) {
+                    // if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
                         // echo "LA TORRE EN".transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]);
                         // echo $codePosition. " ";
                         return "*";
-                    }
-                } else if ($_GET["pieza"] == "alfil") {
-                    if (in_array($codePosition, makeAlfil($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
-                        return "*";
-                    }
-                } else if ($_GET["pieza"] == "dama") {
-                    if (in_array($codePosition, makeDama($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
-                        return "*";
-                    }
-                } else if ($_GET["pieza"] == "caballo") {
-                    if (in_array($codePosition, makeCaballo($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
-                        return "*";
-                    }
-                } else if ($_GET["pieza"] == "rey") {
-                    if (in_array($codePosition, makeRey($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
-                        return "*";
-                    }
-                } else if ($_GET["pieza"] == "peon") {
-                    if (in_array($codePosition, makePeon($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
-                        return "*";
-                    }
+                    
+                } else if (in_array($codePosition, $piezaAmenazada->checkThreats())) {
+                    return "-";
                 }
                 return $codePosition;
             }
@@ -558,7 +545,11 @@
 
             }
             if (isset($_GET["pieza"]) && isset($_GET["xboard"]) && isset($_GET["yboard"])) {
+                $piezaAmenazante = new Pieza($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
+                $piezaAmenazada = new Pieza($_GET["piezan"], transformLetra($_GET["xboarda"]), tranformNumero($_GET["yboarda"]));
                 // checkAmenaza();
+                $piezaAmenazante->isThreat($piezaAmenazada);
+                $piezaAmenazada->isThreat($piezaAmenazante);
                 makeTable();
             } else {
                 echo "<h3>INTRODUCE PARÁMTEROS</h3>";
