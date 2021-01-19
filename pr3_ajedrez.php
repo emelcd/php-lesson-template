@@ -61,6 +61,13 @@
             text-align: center;
 
         }
+
+        .piezas {
+            background-color: #FFF690;
+            border-radius: 50%;
+            margin: auto;
+            width: 50%;
+        }
     </style>
     <form action="pr3_ajedrez.php">
         <hr>
@@ -177,7 +184,8 @@
                         // GLOBAL $someCount;
                         // $someCount++;
                         // echo $someCount;
-                        return "<span style='color: #08FFBE;'>*</span>" . $piezaAmenazante->asciiPi() . "<span style='color: #08FFBE;'>*</span>";
+                        return "<span style='color: #08FFBE;'>*</span>
+                        " . $piezaAmenazante->asciiPi() . "<span style='color: #08FFBE;'>*</span>";
                     }
                     return $piezaAmenazante->asciiPi();
                 } else if ($codePosition == $posAme) {
