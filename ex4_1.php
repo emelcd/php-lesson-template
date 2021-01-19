@@ -82,7 +82,7 @@
     <hr>
     <!-- EJERCICIO 2 -->
     <h3>Ejercicio 2</h3>
-    <h5>CHECKEA +/-</h5>
+    <h5>CHECKEA El Vector Inverso</h5>
     <form action="ex4_1.php" method="get">
         <input type="text" name="ex2" id="ex2">
         <input type="submit">
@@ -105,6 +105,13 @@
     if (isset($_GET["ex2"])) {
         vecOrdenar(numToVector($_GET["ex2"]));
     }
+
+    function returnMatrixN($number)
+    {
+        for ($i = 0; $i < $number; $i++) {
+            echo "<input type='text' name='ex3" . $i . "' id='ex3" . $i . "'><br>";
+        }
+    }
     ?>
 
     <hr>
@@ -112,32 +119,28 @@
     <h3>Ejercicio 3</h3>
     <h5>MATRIZ </h5>
 
-    <form action="ex4_1php" method="get">
-        <input type="number" name="matrix1" id="matrix1">
+    <form action="ex4_1.php" method="get">
+        <input type="number" name="ma1" id="ma1">
         <input type="submit" value="DALE">
     </form>
 
 
+    <form action='ex4_1.php' method='get'>
+    <?php 
+    if (isset($_GET["ma1"])) {
+        returnMatrixN($_GET["ma1"]);
+    }
     
-        <?php
-        function returnMatrixN($number)
-        {
-            echo "<form action='ex4_1.php' method='get'>";
-            for ($i = 0; $i < $number; $i++) {
-                echo "<input type='text' name='ex3" . $i . "' id='ex3" . $i . "'><br>";
-            }
-            echo "</form>";
-        }
-        if (isset($_GET["matrix1"])) {
-            returnMatrixN($_GET["matrix1"]);
-        }
-        returnMatrixN(5);
-        ?>
+    ?>
+    <input type="submit" value="DALE">
+    </form>
 
 
 
     <hr>
 
+    <hr>
+    <h3><a style="text-decoration: none; color: black;" href="index.php">RETURN TO MAIN</a></h3>
 
 </body>
 
