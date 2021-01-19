@@ -65,7 +65,7 @@
     <?php
     function vecProCru($v1X, $v2Y)
     {
-        
+
         $suma = 0;
         for ($i = 0; $i < count($v1X); $i++) {
             $productos = $v1X[$i] * $v2Y[count($v1X) - $i - 1];
@@ -76,7 +76,7 @@
     }
 
     if (isset($_GET["ex1a"])) {
-        vecProCru(numToVector($_GET["ex1a"]) ,numToVector($_GET["ex1b"]));
+        vecProCru(numToVector($_GET["ex1a"]), numToVector($_GET["ex1b"]));
     }
     ?>
     <hr>
@@ -102,10 +102,39 @@
     }
 
 
-        if (isset($_GET["ex2"])) {
-            vecOrdenar(numToVector($_GET["ex2"]));
+    if (isset($_GET["ex2"])) {
+        vecOrdenar(numToVector($_GET["ex2"]));
+    }
+    ?>
+
+    <hr>
+    <!-- EJERCICIO 3 -->
+    <h3>Ejercicio 3</h3>
+    <h5>MATRIZ </h5>
+
+    <form action="ex4_1php" method="get">
+        <input type="number" name="matrix1" id="matrix1">
+        <input type="submit" value="DALE">
+    </form>
+
+
+    
+        <?php
+        function returnMatrixN($number)
+        {
+            echo "<form action='ex4_1.php' method='get'>";
+            for ($i = 0; $i < $number; $i++) {
+                echo "<input type='text' name='ex3" . $i . "' id='ex3" . $i . "'><br>";
+            }
+            echo "</form>";
         }
+        if (isset($_GET["matrix1"])) {
+            returnMatrixN($_GET["matrix1"]);
+        }
+        returnMatrixN(5);
         ?>
+
+
 
     <hr>
 

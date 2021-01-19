@@ -66,7 +66,7 @@
         <hr>
         <h5>Amenaza</h5>
         <select style="width: 20vw;" name="pieza" id="pieza" required>
-            <option selected="selected">dama</option>
+            <option selected="selected">torre</option>
             <?php
             $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peon", "Rey");
             foreach ($piezas as $item) {
@@ -97,7 +97,7 @@
         <hr>
         <h5>Amenazado</h5>
         <select style="width: 20vw;" name="xboarda" id="xboarda">
-            <option selected="selected">E</option>
+            <option selected="selected">D</option>
             <?php
             $xindex = array("A", "B", "C", "D", "E", "F", "G", "H");
             foreach ($xindex as $item) {
@@ -106,7 +106,7 @@
             ?>
         </select>
         <select style="width: 20vw;" name="yboarda" id="yboarda">
-            <option selected="selected">5</option>
+            <option selected="selected">4</option>
             <?php
             $yindex = array("1", "2", "3", "4", "5", "6", "7", "8");
             foreach ($yindex as $item) {
@@ -386,6 +386,7 @@
                         // echo $codePosition. " ";
                         return "*";
                     }
+
                 } else if ($_GET["pieza"] == "alfil") {
                     if (in_array($codePosition, makeAlfil($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
                         return "*";
@@ -411,6 +412,7 @@
             }
             function makeRow($colorStart, $letterIndex, $numberRow)
             {
+                
                 $letterArray = array("A", "B", "C", "D", "E", "F", "G", "H");
                 $classBoard = $colorStart;
                 for ($i = 8; $i > 0; $i = $i - 1) {
@@ -442,7 +444,55 @@
                     return $classBoard = "white-board";
                 }
             }
+
+            function checkAmenaza () {
+                $posAme = checkPos($_GET["xboarda"], $_GET["yboarda"]);
+                 if ($_GET["pieza"] == "torre") {
+                    if (in_array($posAme, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        // echo "LA TORRE EN".transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]);
+                        // echo $posAme. " ";
+                        echo 'LA  '.$_GET["pieza"].' AMENAZA LA POSICION '.$posAme.' <br>';
+                    } else {
+                        echo "NO HAY AMENAZA ";
+                    }
+
+                } else if ($_GET["pieza"] == "alfil") {
+                    if (in_array($posAme, makeAlfil($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        echo 'LA  '.$_GET["pieza"].' AMENAZA LA POSICION '.$posAme.' <br>';
+                    } else {
+                        echo "NO HAY AMENAZA ";
+                    }
+                } else if ($_GET["pieza"] == "dama") {
+                    if (in_array($posAme, makeDama($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        echo 'LA  '.$_GET["pieza"].' AMENAZA LA POSICION '.$posAme.' <br>';
+                    } else {
+                        echo "NO HAY AMENAZA ";
+                    }
+                } else if ($_GET["pieza"] == "caballo") {
+                    if (in_array($posAme, makeCaballo($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        echo 'LA  '.$_GET["pieza"].' AMENAZA LA POSICION '.$posAme.' <br>';
+                    } else {
+                        echo "NO HAY AMENAZA ";
+                    }
+                } else if ($_GET["pieza"] == "rey") {
+                    if (in_array($posAme, makeRey($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        echo 'LA  '.$_GET["pieza"].' AMENAZA LA POSICION '.$posAme.' <br>';
+                    } else {
+                        echo "NO HAY AMENAZA ";
+                    }
+                } else if ($_GET["pieza"] == "peon") {
+                    if (in_array($posAme, makePeon($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
+                        echo 'LA  '.$_GET["pieza"].' AMENAZA LA POSICION '.$posAme.' <br>';
+                    } else {
+                        echo "NO HAY AMENAZA ";
+                    }
+                } 
+                
+                // echo 'LA  '.$_GET["pieza"].' NO AMENAZA LA POSICION  '. $posAme .'<br>';
+
+            }
             if (isset($_GET["pieza"]) && isset($_GET["xboard"]) && isset($_GET["yboard"])) {
+                checkAmenaza();
                 makeTable();
             } else {
                 echo "<h3>INTRODUCE PARÁMTEROS</h3>";
