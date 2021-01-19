@@ -66,29 +66,36 @@
         <hr>
         <h5>Amenaza</h5>
         <select style="width: 20vw;" name="pieza" id="pieza" required>
-            <option selected="selected">torre</option>
             <?php
-            $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peon", "Rey");
+            function randomPicker($arr)
+            {
+                echo $arr[array_rand($arr)];
+            }
+            $piezas = array("dama", "torre", "alfil", "caballo", "peon", "rey");
+            $yindex = array("1", "2", "3", "4", "5", "6", "7", "8");
+            $xindex = array("A", "B", "C", "D", "E", "F", "G", "H");
+            ?>
+            <option selected="selected"><?php randomPicker($piezas); ?></option>
+            <?php
             foreach ($piezas as $item) {
                 $valuePiezas = strtolower($item);
                 echo "<option value='$valuePiezas'>$item</option>";
             }
+
             ?>
 
         </select>
         <select style="width: 20vw;" name="xboard" id="xboard" required>
-            <option selected="selected">E</option>
+            <option selected="selected"><?php randomPicker($xindex); ?></option>
             <?php
-            $xindex = array("A", "B", "C", "D", "E", "F", "G", "H");
             foreach ($xindex as $item) {
                 echo "<option value='$item'>$item</option>";
             }
             ?>
         </select>
         <select style="width: 20vw;" name="yboard" id="yboard" required>
-            <option selected="selected">5</option>
+            <option selected="selected"><?php randomPicker($yindex); ?></option>
             <?php
-            $yindex = array("1", "2", "3", "4", "5", "6", "7", "8");
             foreach ($yindex as $item) {
                 echo "<option value='$item'>$item</option>";
             }
@@ -97,9 +104,8 @@
         <hr>
         <h5>Amenazado</h5>
         <select style="width: 20vw;" name="piezan" id="piezan" required>
-            <option selected="selected">torre</option>
+            <option selected="selected"><?php randomPicker($piezas); ?></option>
             <?php
-            $piezas = array("Dama", "Torre", "Alfil", "Caballo", "Peon", "Rey");
             foreach ($piezas as $item) {
                 $valuePiezas = strtolower($item);
                 echo "<option value='$valuePiezas'>$item</option>";
@@ -108,18 +114,16 @@
 
         </select>
         <select style="width: 20vw;" name="xboarda" id="xboarda">
-            <option selected="selected">D</option>
+            <option selected="selected"><?php randomPicker($xindex); ?></option>
             <?php
-            $xindex = array("A", "B", "C", "D", "E", "F", "G", "H");
             foreach ($xindex as $item) {
                 echo "<option value='$item'>$item</option>";
             }
             ?>
         </select>
         <select style="width: 20vw;" name="yboarda" id="yboarda">
-            <option selected="selected">4</option>
+            <option selected="selected"><?php randomPicker($yindex); ?></option>
             <?php
-            $yindex = array("1", "2", "3", "4", "5", "6", "7", "8");
             foreach ($yindex as $item) {
                 echo "<option value='$item'>$item</option>";
             }
@@ -156,28 +160,31 @@
             class Pieza
             {
 
-                public function __construct($piezan, $posicionx, $posiciony)
+                public function __construct($piezac, $posicionx, $posiciony)
                 {
-                    $this->piezan = $piezan;
+                    $this->piezac = $piezac;
                     $this->posicionx = $posicionx;
                     $this->posiciony = $posiciony;
                 }
                 public function checkThreats()
                 {
-                    if ($this->piezan == "torre") {
-                        $bagof = makeTorre($this->piezan, $this->posicionx, $this->posiciony);
+                    if ($this->piezac == "torre") {
+                        $bagof = makeTorre($this->piezac, $this->posicionx, $this->posiciony);
                         return $bagof;
-                    } else if ($this->piezan == "alfil") {
-                        $bagof = makeAlfil($this->piezan, $this->posicionx, $this->posiciony);
+                    } else if ($this->piezac == "alfil") {
+                        $bagof = makeAlfil($this->piezac, $this->posicionx, $this->posiciony);
                         return $bagof;
-                    } else if ($this->piezan == "dama") {
-                        $bagof = makeDama($this->piezan, $this->posicionx, $this->posiciony);
+                    } else if ($this->piezac == "dama") {
+                        $bagof = makeDama($this->piezac, $this->posicionx, $this->posiciony);
                         return $bagof;
-                    } else if ($this->piezan == "rey") {
-                        $bagof = makeRey($this->piezan, $this->posicionx, $this->posiciony);
+                    } else if ($this->piezac == "rey") {
+                        $bagof = makeRey($this->piezac, $this->posicionx, $this->posiciony);
                         return $bagof;
-                    } else if ($this->piezan == "peon") {
-                        $bagof = makeRey($this->piezan, $this->posicionx, $this->posiciony);
+                    } else if ($this->piezac == "peon") {
+                        $bagof = makePeon($this->piezac, $this->posicionx, $this->posiciony);
+                        return $bagof;
+                    } else if ($this->piezac == "caballo") {
+                        $bagof = makeCaballo($this->piezac, $this->posicionx, $this->posiciony);
                         return $bagof;
                     } else {
                         echo "ALGO VA MAL";
@@ -185,12 +192,13 @@
                 }
                 public function tellPlace()
                 {
-                    echo "{$this->piezan}";
+                    echo "{$this->piezac}";
                     echo "{$this->posicionx}";
                     echo "{$this->posiciony}";
                 }
-                public function asciiPi() {
-                    switch ($this->piezan) {
+                public function asciiPi()
+                {
+                    switch ($this->piezac) {
                         case 'dama':
                             return "&#9813;";
                         case 'torre':
@@ -204,7 +212,6 @@
                         case 'rey':
                             return "&#9812;";
                     }
-                    
                 }
                 public $piezaM;
 
@@ -217,9 +224,11 @@
                     $bagof = $this->checkThreats();
 
                     if (in_array($codeP, $bagof)) {
-                        echo "$this->piezan en $code AMENAZA  $piezaM->piezan en  $codeP<br>";
+                        echo "$this->piezac en $code AMENAZA  $piezaM->piezac en  $codeP<br>";
+                        return true;
                     } else {
-                        echo "$this->piezan en $code NO AMENAZA  $piezaM->piezan en  $codeP<br>";
+                        echo "$this->piezac en $code NO AMENAZA  $piezaM->piezac en  $codeP<br>";
+                        return false;
                     }
                 }
             }
@@ -341,11 +350,11 @@
                 array_unique($bagof);
                 return $bagof;
             }
-            function makeDama($pieza)
+            function makeDama($pieza, $posicionx, $posiciony)
             {
                 $bagof = array();
-                $bagofTorre = makeAlfil($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
-                $bagofAlfil = makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]));
+                $bagofTorre = makeAlfil($_GET["pieza"], $posicionx, $posiciony);
+                $bagofAlfil = makeTorre($_GET["pieza"],  $posicionx, $posiciony);
                 foreach ($bagofTorre as $item) {
                     array_push($bagof, $item);
                 }
@@ -449,15 +458,19 @@
                 $posUser = checkPos($_GET["xboard"], $_GET["yboard"]);
                 $posAme = checkPos($_GET["xboarda"], $_GET["yboarda"]);
                 if ($codePosition == $posUser) {
+                    if (in_array($posUser, $piezaAmenazada->checkThreats())) {
+                        return "<span style='color: red;'>*</span>".$piezaAmenazante->asciiPi() . "<span style='color: red;'>*</span>";
+                    }
                     return $piezaAmenazante->asciiPi();
                 } else if ($codePosition == $posAme) {
+                    if (in_array($posAme, $piezaAmenazante->checkThreats())) {
+                        return "<span style='color: red;'>*</span>".$piezaAmenazada->asciiPi() . "<span style='color: red;'>*</span>";
+                    }
+
                     return $piezaAmenazada->asciiPi();
                 } else  if (in_array($codePosition, $piezaAmenazante->checkThreats())) {
-                    // if (in_array($codePosition, makeTorre($_GET["pieza"], transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"])))) {
-                        // echo "LA TORRE EN".transformLetra($_GET["xboard"]), tranformNumero($_GET["yboard"]);
-                        // echo $codePosition. " ";
-                        return "*";
-                    
+
+                    return "*";
                 } else if (in_array($codePosition, $piezaAmenazada->checkThreats())) {
                     return "-";
                 }
