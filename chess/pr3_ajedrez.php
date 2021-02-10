@@ -48,6 +48,8 @@
             height: 80vh;
             margin-left: auto;
             margin-right: auto;
+            margin-bottom: 10rem;
+            margin-top: 1rem;
         }
 
         th {
@@ -137,11 +139,12 @@
             ?>
         </select>
         <br>
-        <hr>
+
         <!-- <input type="text" name="xboard" id="xboard" required> -->
         <!-- <input type="number" name="yboard" id="yboard"> -->
-        <br>
+
         <input type="submit" value="VER LAS AMENAZAS POR PIEZAS">
+        <hr>
 
 
     </form>

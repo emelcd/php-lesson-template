@@ -76,19 +76,21 @@
     </a>
     <h2>REPASO DEL DOMINGO</h2>
     <h3>Tema 3</h3>
-    <a href="ex3_1.php">TEMA 3 PARTE 1</a>
+    <a href="tem3/ex3_1.php">TEMA 3 PARTE 1</a>
     <br>
-    <a href="ex3_2.php">TEMA 3 PARTE 2</a>
+    <a href="tem3/ex3_2.php">TEMA 3 PARTE 2</a>
     <br>
-    <a href="ex3_3.php">TEMA 3 PARTE 3</a>
+    <a href="tem3/ex3_3.php">TEMA 3 PARTE 3</a>
     <br>
-    <a href="ex3_4.php">TEMA 3 PARTE 4</a>
+    <a href="tem3/ex3_4.php">TEMA 3 PARTE 4</a>
     <br>
-    <a href="pr3_ajedrez.php">PRACTICA 3 AJEDREZ</a>
+    <a href="chess/pr3_ajedrez.php">PRACTICA 3 AJEDREZ</a>
     <br>
-    <a href="ex4_1.php">TEMA 4 PARTE 1</a>
+    <a href="tem5/ej1/index.html">Tema 5 1</a>
     <br>
+    <a href="tem5/ej2/index.html">Tema 5 2</a>
 
+    
     
 </body>
 </html>
