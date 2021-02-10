@@ -1,10 +1,20 @@
 ﻿<?php
 
 	session_start();
+	
+	if(isset($_SESSION['arrayNombres'])) {
+		
+		if(in_array(strtoupper($_GET['nombre']), $_SESSION['arrayNombres'])) {
+			header("Location: http://localhost/tem5/ej4");
+			exit;
+		}
+	
+	}
 	if($_GET['nombre'] == ""){
 		header("Location: http://localhost/tem5/ej4");
 		exit;
 	} 
+
 
 	
 	
