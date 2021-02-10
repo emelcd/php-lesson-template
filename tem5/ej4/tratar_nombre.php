@@ -2,15 +2,23 @@
 
 	session_start();
 	if($_GET['nombre'] == ""){
-		header("Location: http://localhost/tem5/ej3");
+		header("Location: http://localhost/tem5/ej4");
 		exit;
-	}
+	} 
 
+	
+	
 
 
 	if(isset($_SESSION['arrayNombres'])) {
+		
+		foreach ($_SESSION['arrayNombres'] as $key => $value ) {
+			echo($value."<br>");
+			}
+
+
 		array_push($_SESSION['arrayNombres'], strtoupper($_GET['nombre']));
-	
+
 		foreach ($_SESSION['arrayNombres'] as $key => $value ) {
 			echo($value."<br>");
 			}
