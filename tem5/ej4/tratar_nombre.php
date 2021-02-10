@@ -2,30 +2,29 @@
 
 	session_start();
 	
-	if(isset($_SESSION['arrayNombres'])) {
-		
-		if(in_array(strtoupper($_GET['nombre']), $_SESSION['arrayNombres'])) {
-			header("Location: http://localhost/tem5/ej4");
-			exit;
-		}
+
+
 	
-	}
+
+	
+
 	if($_GET['nombre'] == ""){
 		header("Location: http://localhost/tem5/ej4");
 		exit;
 	} 
 
+	function isSetted() {
 
+	}
 	
 	
 
 
 	if(isset($_SESSION['arrayNombres'])) {
-		
-		foreach ($_SESSION['arrayNombres'] as $key => $value ) {
-			echo($value."<br>");
-			}
-
+		if(in_array(strtoupper($_GET['nombre']), $_SESSION['arrayNombres'])) {
+			header("Location: http://localhost/tem5/ej4");
+			exit;
+		}
 
 		array_push($_SESSION['arrayNombres'], strtoupper($_GET['nombre']));
 
