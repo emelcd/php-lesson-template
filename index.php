@@ -89,6 +89,10 @@
     <a href="tem5/ej1/index.html">Tema 5 1</a>
     <br>
     <a href="tem5/ej2/index.html">Tema 5 2</a>
+    <br>
+    <a href="tem5/ej3/index.html">Tema 5 3</a>
+    <br>
+    <a href="tem5/ej4/index.html">Tema 5 4</a>
 
     
     
