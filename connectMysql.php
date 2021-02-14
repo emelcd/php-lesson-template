@@ -55,6 +55,7 @@
         .title {
             text-align: center;
         }
+
         .fixedlist {
             text-align: justify;
             margin: auto;
@@ -62,8 +63,6 @@
 
 
         }
-
-
     </style>
     <h1 class="title">MySQL TABLE VIEWER</h1>
     <form method="get">
@@ -78,8 +77,8 @@
 
     $servername = "localhost";
     $user = "root";
-    $password = "fooo";
-    $myDB = "sakila";
+    $password = "";
+    $myDB = "world";
 
 
     $conn = new mysqli($servername, $user, $password, $myDB);
@@ -121,15 +120,14 @@
     $sql_showtables = "SHOW TABLES";
     $result2 = $conn->query($sql_showtables);
     foreach ($result2 as $table) {
-        
-        foreach ($table as $table_entry) {
-            echo("<li>");
-            echo ( $table_entry );
-            echo("</li>");
-        }
 
+        foreach ($table as $table_entry) {
+            echo ("<li>");
+            echo ($table_entry);
+            echo ("</li>");
+        }
     }
-    echo("</div>")
+    echo ("</div>")
     ?>
 
 </body>
