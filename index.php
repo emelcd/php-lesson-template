@@ -97,6 +97,9 @@
     <a href="tem5/ej5/index.html">Tema 5 5</a>
     <br>
     <a style="color:red" href="./login_probe/index.php">LOGIN PROBE</a>
+    <br>
+    <a  href="./connectMysql.php">MySQL</a>
+
 
     
     
