@@ -37,7 +37,7 @@
         $conn = new mysqli($servername, $user, $password, $myDB);
         return $conn;
     }
-    $conn = createConnection("localhost", "root", "-.,asd", "phpurlshorter");
+    $conn = createConnection("localhost", "root", "foofoo", "phpurlshorter");
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
