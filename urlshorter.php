@@ -9,8 +9,16 @@
 </head>
 
 <body>
+<style>
+* {
+    font-family: monospace;
+    font-size: 1.2em;
+    margin: 0 1rem 0 1rem;
+}
+</style>
     <form method="get">
-        <input type="text" name="urlToShort" id="urlToShort">
+        <input style="width:100%;"type="text" name="urlToShort" id="urlToShort">
+        <input type="text" name="descriptionU" id="descriptionU" placeholder="description">
         <input type="submit">
     </form>
     <?php
@@ -24,62 +32,79 @@
         }
         return $randomString;
     }
-    $servername = "localhost";
-    $user = "root";
-    $password = "fooofooo";
-    $myDB = "phpurlshorter";
-    
-    $conn = new mysqli($servername, $user, $password, $myDB);
+    function createConnection($servername = "localhost", $user = "root", $password = "foofoo", $myDB = "phpurlshorter")
+    {
+        $conn = new mysqli($servername, $user, $password, $myDB);
+        return $conn;
+    }
+    $conn = createConnection("localhost", "root", "-.,asd", "phpurlshorter");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-    if(isset($_GET['eco'])){
-        $urlToGo = $_GET['eco'];
-
-        echo ($urlToGo);
-        $sql_togo = "SELECT * from urls where shorted_url='".$_GET['eco']."';";
-        echo("<br>".$sql_togo);
+    $url_shortcut = "http://localhost/urlshorter.php?eco=";
+    function redirecterReady($linkbye, $conn)
+    {
+        $sql_togo = "SELECT * from urls where shorted_url='" . $linkbye . "';";
         $result_to = $conn->query($sql_togo);
         $tweak = $result_to->fetch_assoc();
         $bye_link = $tweak['original_url'];
-  
-        if(strlen($bye_link)>10) {
-            header("Location: ".$bye_link);
+        if (strlen($bye_link) > 10) {
+            header("Location: " . $bye_link);
+        } else {
+            echo ("URL DEMASIADO CORTA");
+        }
+    }
 
+    if (isset($_GET['eco'])) {
+        redirecterReady($_GET['eco'], $conn);
+    }
+
+    if (!isset($_GET['urlToShort']) && $_GET['urlToShort'] != "") {
+        die;
+    }
+
+    function setNewRegiser() {
+
+    }
+
+    $newUrl = generateRandomString();
+
+
+    $sql_control = $conn->query("SELECT original_url, shorted_url from urls where original_url = '" . $_GET['urlToShort'] . "';");
+
+    $tweak3 = $sql_control->fetch_assoc();
+    if(isset($tweak3['original_url'])){
+        if (strlen($tweak3['original_url']) > 0) {
+            echo ("YA EXISTIO");
+            echo ("<br><a href='" .$url_shortcut. $tweak3['shorted_url'] . "'>" .$url_shortcut. $tweak3['shorted_url'] . "</a>");
+            die;
         }
 
     }
-    
-    if(!isset($_GET['urlToShort'])) {
-        die;
 
+    if (strlen($_GET['urlToShort']) > 10) {
+        $sql_query2 = "INSERT INTO urls (original_url, shorted_url) VALUES ('" . $_GET['urlToShort'] . "','" . $newUrl . "')";
+
+        $sql_fit = $conn->query($sql_query2);
+
+        if ($sql_fit === TRUE) {
+
+            echo ("ESTA ES TU NUEVA DIRECCIÓN <br><a href='" .$url_shortcut. $newUrl . "'>" .$url_shortcut. $newUrl . "</a><br><br>");
+        }
+    } else {
+        echo ("DIRECCION NO VALIDA<br><br>");
     }
-    
-    $newUrl = generateRandomString();
-    
 
 
-    $sql_query2 = "INSERT INTO urls (original_url, shorted_url) VALUES ('".$_GET['urlToShort']."','".$newUrl."')";
 
-    $sql_fit = $conn->query($sql_query2);
-    
-    if($sql_fit === TRUE) {
-
-        echo("ESTA ES TU NUEVA DIRECCIÓN <br><a href='http://localhost/urlshorter.php?eco=".$newUrl."'>http://localhost/urlshorter.php?eco=".$newUrl."</a><br>");
+    $avalible = $conn->query("SELECT * FROM urls");
+    $tweak2 = $avalible->fetch_assoc();
+    foreach ($avalible as $link) {
+        echo ("<li><a href='http://localhost/urlshorter.php?eco=" . $link['shorted_url'] . "'>" . $link['shorted_url'] . "</li>");
     }
-    
-    
-
-      
-      $conn->close();
-
-    // $sql_query = "INSERT INTO urls (original_url, shorted_url) VALUES (". $_COOKIE['urlToShort'];
-
-
-
-
-
-
-
-    // header("Location: https://google.es");
+    $conn->close();
+    $_GET['urlToShort'] = "";
 
     ?>
 
