@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MySQL</title>
 </head>
@@ -21,6 +21,7 @@
             display: block;
             height: 500px;
             overflow-y: scroll;
+            padding: 1.5rem;
 
             border-collapse: collapse;
             border-spacing: 0;
@@ -66,7 +67,7 @@
     </style>
     <h1 class="title">MySQL TABLE VIEWER</h1>
     <form method="get">
-        <input type="text" name="tableName" id="tableName">
+        <input type="text" name="tableName" id="tableName" placeholder="Nombre de La Tabla" value="film">
         <input type="number" name="viewCount" id="viewCount" value="50">
         <input type="submit">DALE
     </form>
@@ -77,8 +78,8 @@
 
     $servername = "localhost";
     $user = "root";
-    $password = "";
-    $myDB = "world";
+    $password = "foofoo";
+    $myDB = "sakila";
 
 
     $conn = new mysqli($servername, $user, $password, $myDB);
@@ -87,6 +88,7 @@
 
     if ($conn->connect_error) {
         die("Connection FAIL" . $conn->connect_error);
+        exit;
     }
 
 
