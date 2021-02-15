@@ -9,8 +9,11 @@
 * {
 	font-size: 1.2em;
 	font-family: monospace;
+	margin: auto;
+	text-align: center;
 }
 </style>
+	
 	
 	<form action='tratar.php' method='post'>
 		<input type='submit' name='bajar' value='-'/>
