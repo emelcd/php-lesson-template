@@ -10,6 +10,7 @@ session_start();
 	<meta charset='utf-8'/>
 	<title>Cara</title>
 	<style type='text/css'>
+
 		img{
 			display:block;
 			margin:auto;
@@ -47,7 +48,7 @@ session_start();
 			<input class='boton' type='submit' name='boton' value='Barbilla' />
 		</fieldset>
 
-		
+
 		</form>
 	</div>
 </body>
