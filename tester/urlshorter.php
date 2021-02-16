@@ -35,12 +35,12 @@
     function createConnection($servername = "localhost", $user = "root", $password = "foofoo", $myDB = "phpurlshorter")
     {
         $conn = new mysqli($servername, $user, $password, $myDB);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
         return $conn;
     }
     $conn = createConnection("localhost", "root", "foofoo", "phpurlshorter");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     $url_shortcut = "http://localhost/urlshorter.php?eco=";
     function redirecterReady($linkbye, $conn)
