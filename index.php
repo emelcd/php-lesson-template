@@ -102,7 +102,11 @@
     <br>
     <a href="tem5/ej8/index.php">Tema 5 8</a>
     <br>
-    <a href="tem6/ej1/alta_clientes.html">Tema 6 1</a>
+    <a href="tem6/tabla_clientes">Tema 6 Clientes</a>
+    <br>
+    <a href="tem6/provincias">Tema 6 Pueblos</a>
+    <br>
+    <a href="tem6/citas">Tema 6 Citas</a>
     <br>
     <a  href="./tester/connectMysql.php">MySQL</a>
     <br>

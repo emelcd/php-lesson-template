@@ -2,6 +2,7 @@
 header('Content-Type: text/html; charset=UTF-8');
 
 include 'encriptar.php';
+include 'errorfun.php';
 
 function checkPassWord()
 {
@@ -13,15 +14,7 @@ function checkPassWord()
 	}
 }
 
-function handleErrorsConnection($conn)
-{
-	if ($conn->connect_error) {
-		$error = $conn->connect_error;
-		$n_error = $conn->connect_errno;
-		header("Location: error.php?error=" . $error . "&n_error=" . $n_error);
-		die;
-	}
-}
+
 
 function createConnection($servername = "localhost", $user = "root", $password = "foofoo", $myDB = "implantacion_web")
 {
@@ -30,19 +23,12 @@ function createConnection($servername = "localhost", $user = "root", $password =
 	return $conn;
 }
 
-function handleErrorsQuery($bool, $conn)
-{
-	$error = $conn->error;
-	if ($bool === FALSE) {
-		header("Location: error.php?error=" . $error . "&n_error= QUERY ERROR");
-		die;
-	}
-}
+
 
 function insertData($email = "roun@maxim.com", $password = "eco", $nombre = "Emel", $apellido1 = "Gallardo", $apellido2 = "Somon", $ciudad = "Madrid", $direccion = "CAlmirante Sorolla23")
 {
 
-	$conn = createConnection("localhost", "root", "-.,asd", "implantacion_web");
+	$conn = createConnection("localhost", "root", "foofoo", "implantacion_web");
 	$sql_query = "INSERT INTO clientes (email, Clave, Nombre, Ap1, Ap2, Ciudad, Direccion) VALUES ('" . $email . "','" . $password . "','" . $nombre . "','" . $apellido1 . "','" . $apellido2 . "','" . $ciudad . "','" . $direccion . "');";
 	$result = $conn->query($sql_query);
 	handleErrorsQuery($result, $conn);

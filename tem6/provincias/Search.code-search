@@ -1,0 +1,15 @@
+# Query: -.,asd
+
+4 resultados - Archivos de 4
+
+tem6\provincias\creacion_conexion.php:
+  22: 	function createConnection($host = "localhost",$user = "root",$pass = "foofoo",$myDB = "pueblos") {
+
+tem6\tabla_clientes\creacion_conexion.php:
+  22: 	function createConnection($host = "localhost",$user = "root",$pass = "foofoo",$myDB = "implantacion_web") {
+
+test\alta_clientes.php:
+  31: 	$conn = createConnection("localhost", "root", "foofoo", "implantacion_web");
+
+test\clientes_provincia.php:
+  18:     function createConnection($servername = "localhost", $user = "root", $password = "foofoo", $myDB = "implantacion_web")

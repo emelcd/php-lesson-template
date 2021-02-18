@@ -20,7 +20,8 @@
 	<h1>ERROR  <?php echo $n_error;?></h1>
 	<hr/>
 	<h2><?php echo $error;?></h2>
+	<br>
 	<hr>
-	<a href="alta_clientes.html"><h2>INTENTALO DE NUEVO</h2></a>
+	<a href="alta_clientes.html">Vuelve a Intentarlo</a>
 </body>
 </html>
