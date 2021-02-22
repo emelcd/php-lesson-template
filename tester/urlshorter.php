@@ -32,7 +32,7 @@
         }
         return $randomString;
     }
-    function createConnection($servername = "localhost", $user = "root", $password = "-.,asd", $myDB = "phpurlshorter")
+    function createConnection($servername = "localhost", $user = "root", $password = "foofoo", $myDB = "phpurlshorter")
     {
         $conn = new mysqli($servername, $user, $password, $myDB);
         if ($conn->connect_error) {
@@ -40,7 +40,7 @@
         }
         return $conn;
     }
-    $conn = createConnection("localhost", "root", "-.,asd", "phpurlshorter");
+    $conn = createConnection("localhost", "root", "foofoo", "phpurlshorter");
 
     $url_shortcut = "http://localhost/urlshorter.php?eco=";
     function redirecterReady($linkbye, $conn)

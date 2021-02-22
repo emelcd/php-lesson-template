@@ -78,7 +78,7 @@
 
     $servername = "localhost";
     $user = "root";
-    $password = "-.,asd";
+    $password = "foofoo";
     $myDB = "sakila";
 
 

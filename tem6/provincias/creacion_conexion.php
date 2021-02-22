@@ -19,7 +19,7 @@
 
 		
 	
-	function createConnection($host = "localhost",$user = "root",$pass = "-.,asd",$myDB = "pueblos") {
+	function createConnection($host = "localhost",$user = "root",$pass = "foofoo",$myDB = "pueblos") {
 		
 		$conn = new mysqli($host,$user,$pass,$myDB);
 		handleErrorConnection($conn);

@@ -1,6 +1,6 @@
 <?php
 
-    function createConnection($host="localhost",$user="root",$password="-.,asd", $myDB = "sakila") {
+    function createConnection($host="localhost",$user="root",$password="foofoo", $myDB = "sakila") {
         $conn = new mysqli($host,$user,$password,$myDB);
 
 
