@@ -167,7 +167,7 @@
         echo $segundaAsignatura;
         echo $terceraAsignatura;
 
-        // MÉTODO ESPECIFICO PARA RECORRER ARRAYS DE ARRAY 
+        // MÉTODO ESPECIFICO PARA RECORRER ARRAYS 
 
         foreach ($arrayAsignaturas as $asignatura) {
             echo " <br>$asignatura ";
